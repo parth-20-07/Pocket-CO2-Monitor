@@ -58,14 +58,7 @@ Bottom View
 </center>
 
 ## Tools Used
-<img width="40px" align="center" alt="Arduino" src="Resources/Logos/Arduino Logo.png">
-<img width="30px" align="center" alt="C" src="Resources/Logos/C Logo.jpeg">
-<img width="25px" align="center" alt="CPP" src="Resources/Logos/CPP Logo.jpeg">
-<img width="80px" align="center" alt="Git" src="Resources/Logos/Git Logo.jpeg">
-<img width="35px" align="center" alt="GitHub" src="Resources/Logos/GitHub Logo.jpeg">
-<img width="35px" align="center" alt="VS Code" src="Resources/Logos/VS Code.jpeg">
-<img width="30px" align="center" alt="Eagle" src="Resources/Logos/Eagle Logo.png">
-<img width="22px" align="center" alt="Fusion 360" src="Resources/Logos/Fusion 360 Logo.png">
+<img width="40px" align="center" alt="Arduino" src="Resources/Logos/Arduino Logo.png"><img width="30px" align="center" alt="C" src="Resources/Logos/C Logo.jpeg"><img width="25px" align="center" alt="CPP" src="Resources/Logos/CPP Logo.jpeg"><img width="80px" align="center" alt="Git" src="Resources/Logos/Git Logo.jpeg"><img width="35px" align="center" alt="GitHub" src="Resources/Logos/GitHub Logo.jpeg"><img width="35px" align="center" alt="VS Code" src="Resources/Logos/VS Code.jpeg"><img width="30px" align="center" alt="Eagle" src="Resources/Logos/Eagle Logo.png"><img width="22px" align="center" alt="Fusion 360" src="Resources/Logos/Fusion 360 Logo.png">
 
 <br><br>
 

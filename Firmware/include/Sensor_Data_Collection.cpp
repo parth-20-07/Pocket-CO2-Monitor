@@ -5,25 +5,33 @@
 #include "Pin_Connection.h"
 #include "Variable_Declaration.h"
 
-// #define HTU21D_TEMP_HUMIDITY_SENSOR
-// #define MHZ19C_CO2_SENSOR
+#define HTU21D_TEMP_HUMIDITY_SENSOR
+#define MHZ19C_CO2_SENSOR
 // #define TSL2561_LUX_SENSOR
-#define PMS_DUST_SENSOR
+// #define PMS_DUST_SENSOR
 
 /* -------------------------------------------------------------------------- */
 /*                              BASIC DEFINITION                              */
 /* -------------------------------------------------------------------------- */
+#define VALUE_LENGTH 5
+#define MINIMUM_WIDTH 1
+#define NUM_AFTER_DECIMAL 0
+
 #ifdef HTU21D_TEMP_HUMIDITY_SENSOR
 #include <Wire.h>
 #include "HTU21D.h"
 HTU21D temperature_and_humidity_sensor; // Create an instance of the object
+uint8_t humd, temp;
+char temp_value[VALUE_LENGTH], humi_value[VALUE_LENGTH]; // Variable to store values
 #endif
 
 #ifdef MHZ19C_CO2_SENSOR
 #include "MHZ19.h"
-#include "HardwareSerial.h"
-HardwareSerial MHZ19CSerial(2);
+#include "SoftwareSerial.h"
 MHZ19 carbondioxide_sensor; // Constructor for library
+SoftwareSerial MHZ19CSerial(MHZ_RX, MHZ_TX);
+uint16_t CO2;
+char co2_value[VALUE_LENGTH]; // Variable to store CO2
 #endif
 
 #ifdef TSL2561_LUX_SENSOR
@@ -108,7 +116,6 @@ String collect_temperature_and_humidity_values(void)
     uint8_t temp = temperature_and_humidity_sensor.readTemperature();
     Serial.println("Temperature: " + (String)temp + "C");
     Serial.println("Humidity: " + (String)humd + "%");
-    return (",T:" + (String)temp + ",H:" + (String)humd);
 }
 #endif
 
@@ -116,9 +123,8 @@ String collect_temperature_and_humidity_values(void)
 String collect_co2_values(void)
 {
     Serial.println("Reading MHZ19C");
-    uint16_t CO2 = carbondioxide_sensor.getCO2();
+    CO2 = carbondioxide_sensor.getCO2();
     Serial.println("CO2: " + (String)CO2 + "ppm");
-    return (",C:" + (String)CO2);
 }
 #endif
 
@@ -153,13 +159,11 @@ void collect_dust_quality_data(void)
     memset(pm_ae_2_5, 0, VALUE_LENGTH);
     memset(pm_ae_10_0, 0, VALUE_LENGTH);
     while (!pms.read(data))
-        ;
+        if (digitalRead(INT_PIN) == LOW)
+            break;
     dtostrf(data.PM_AE_UG_1_0, MINIMUM_WIDTH, NUM_AFTER_DECIMAL, pm_ae_1_0);
-    Serial.println("\nPM AE 1.0: " + (String)pm_ae_1_0);
     dtostrf(data.PM_AE_UG_2_5, MINIMUM_WIDTH, NUM_AFTER_DECIMAL, pm_ae_2_5);
-    Serial.println("PM AE 2.5: " + (String)pm_ae_2_5);
     dtostrf(data.PM_AE_UG_10_0, MINIMUM_WIDTH, NUM_AFTER_DECIMAL, pm_ae_10_0);
-    Serial.println("PM AE 10: " + (String)pm_ae_10_0);
 }
 #endif
 

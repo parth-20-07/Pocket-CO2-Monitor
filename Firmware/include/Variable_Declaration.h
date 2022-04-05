@@ -10,22 +10,18 @@
 #ifndef VARIABLE_DECLARATION_H
 #define VARIABLE_DECLARATION_H
 #include "Pin_Connection.h"
-#include "Device_Configuration.h"
 
 //!============================== Sensor Variables =======================================//
-#define MAX_SAFETY_LIMIT 50
-#define MAX_WARNING_LIMIT 100
-#define MAX_UNHEALTHY_LIMIT 300
-#define MAX_HAZARDOUS_LIMIT 500
+#define MAX_SAFETY_LIMIT 799
+#define MAX_WARNING_LIMIT 1199
+#define MAX_UNHEALTHY_LIMIT 1599
+#define MAX_HAZARDOUS_LIMIT 10000
 //!=======================================================================================//
 
 //!============================= Display Variables =======================================//
-#define SCREEN_REFRESH_TIME 10000 // Time to wait before screen update (time in ms)
-int screen_counter = 1;           // Counts on which screen the user is at
-bool first_boot = true;           // Checks if the device is just starting up
-bool change_screen_flag = false;  // Checks if the screen needs to be changed
+int screen_counter = 1;          // Counts on which screen the user is at
+bool change_screen_flag = false; // Checks if the screen needs to be changed
 const char company_name[] = "Ecologic";
-#define boot_screen_timer 5000 // The timer in ms for which the bootscreen is being displayed
 #define BATTERY_SYMBOL_HEIGHT 15
 #define BATTERY_SYMBOL_WIDTH 30
 #define MARGIN_BUFFER 3
@@ -33,15 +29,10 @@ const char company_name[] = "Ecologic";
 // #define GRAPH_PLOT_TIME 300000 // 5 mins plotter
 #define GRAPH_PLOT_TIME 10000 // 10 secs plotter
 uint32_t last_millis;
-int screen_height = 0;
 int screen_width = 0;
+int screen_height = 0;
 
-#ifdef TFT_LCD_DISPLAY
 #include <SPI.h>
-#ifdef SD_SUPPORT_ENABLED
-#include <SD.h>
-#endif
-
 #include <TFT.h>
 TFT screen = TFT(TFT_DISPLAY_CS, TFT_DISPLAY_DC, TFT_DISPLAY_RST);
 
@@ -54,16 +45,6 @@ TFT screen = TFT(TFT_DISPLAY_CS, TFT_DISPLAY_DC, TFT_DISPLAY_RST);
 #define GREEN_COLOR 0, 255, 0
 #define ORANGE_COLOR 0, 50, 255
 #define PINK_COLOR 182, 193, 255
-
-#endif
-
-#ifdef TM1637_4x7_SEGMENT_DISPLAY
-#include <TM1637Display.h>
-TM1637Display display = TM1637Display(SEGMENT_CLK, SEGMENT_DIO);
-#define TM1637_DISPLAY_BRIGHTNESS 7               // Set the brightness to 5 (0=dimmest 7=brightest)
-const uint8_t allON[] = {0xff, 0xff, 0xff, 0xff}; // Create an array that turns all segments ON
-#endif
-
 //!=======================================================================================//
 
 //!============================= Battery Variables =======================================//
