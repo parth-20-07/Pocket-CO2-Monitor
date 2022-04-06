@@ -41,8 +41,8 @@
 #define INT_PIN NANO_GPIO_2 // Push Button to change the screens
 
 /* -------------------------- MHZ - 19C CONNECTION -------------------------- */
-#define MHZ_RX NANO_GPIO_7 // Serial RX Pin for the MHZ-19C Sensor
-#define MHZ_TX NANO_GPIO_6 // Serial TX Pin for the MHZ-19C Sensor
+#define MHZ_RX NANO_GPIO_6 // Serial RX Pin for the MHZ-19C Sensor
+#define MHZ_TX NANO_GPIO_7 // Serial TX Pin for the MHZ-19C Sensor
 
 /* ---------------------------- SUPPLY CONNECTION --------------------------- */
 #define BATTERY_INPUT NANO_AI_0        // Battery connection input to the Arduino to read the battery level

@@ -22,7 +22,6 @@ void graphic_data_screen(void);
 void drawing_battery(void);
 void put_device_to_sleep(void);
 void change_screen(void);
-void start_device_peripherals(void);
 void stop_device_peripherals(void);
 
 //!==================================================================================//
@@ -38,7 +37,7 @@ void boot_screen(void)
   screen.background(BLACK_COLOR);
   screen.setTextSize(2);
   screen.stroke(WHITE_COLOR);
-  screen.text("ECOLOGIC", 10, (screen_width / 2) - 10);
+  screen.text("ECOLOGIC", 20, (screen_height / 2) - 10);
 }
 
 /**
@@ -46,7 +45,16 @@ void boot_screen(void)
  */
 void graphic_data_screen(void)
 {
-  start_device_peripherals();
+  Serial.println("Starting Device Peripherals");
+  digitalWrite(TFT_DISPLAY_LED, HIGH);
+  screen.begin();
+  screen.setRotation(90);
+  screen_width = screen.width();
+  screen_height = screen.height();
+  screen.background(BLACK_COLOR);
+  screen.stroke(WHITE_COLOR);
+  boot_screen();
+
   change_screen_flag = false;
   Serial.println("Drawing Graphic Screen");
   screen.background(BLACK_COLOR);
@@ -90,7 +98,7 @@ void graphic_data_screen(void)
   screen.stroke(RED_COLOR);
   screen.fill(RED_COLOR);
   screen.rect(indicator_x_starting_pos + green_indicator_height + warning_indicator_height + severe_indicator_height, indicator_y_starting_pos, danger_indicator_height, indicator_height);
-
+  bool first_boot = true;
   while (1)
   {
     if ((digitalRead(INT_PIN) == LOW) || change_screen_flag)
@@ -99,26 +107,27 @@ void graphic_data_screen(void)
       break;
     }
 
-    if ((millis()) - last_millis > 1000)
+    if (((millis()) - last_millis > GRAPH_PLOT_TIME) || first_boot)
     {
+      first_boot = false;
+      Serial.println();
       // Calculating values for the design
       int arrow_x_position = 0;
-      // collect_co2_values();
+      collect_co2_values();
       collect_temperature_and_humidity_values();
-      int registered_level = CO2;
-      registered_level = random(1, 19999); // TODO: Delete later on
       Serial.println("Values Fetched");
-      strcpy(co2_value, ((String)registered_level).c_str());
-      String temp_str = (String)temp + " C";
+      String co2_str = (String)CO2;
+      strcpy(co2_value, co2_str.c_str());
+      String temp_str = (String)temp;
       strcpy(temp_value, temp_str.c_str());
-      String humi_str = (String)humd + " %";
+      String humi_str = (String)humd + "%";
       strcpy(humi_value, humi_str.c_str());
-      Serial.println("CO2: " + (String)co2_value);
-      Serial.println("Temp: " + (String)temp_value);
-      Serial.println("Humi: " + (String)humi_value);
+      Serial.println("Label CO2: " + (String)co2_value);
+      Serial.println("Label Temp: " + (String)temp_value);
+      Serial.println("Label Humd: " + (String)humi_value);
 
-      if (registered_level < MAX_HAZARDOUS_LIMIT)
-        arrow_x_position = indicator_x_starting_pos + (registered_level * indicator_bar_width / MAX_HAZARDOUS_LIMIT);
+      if (CO2 < MAX_HAZARDOUS_LIMIT)
+        arrow_x_position = indicator_x_starting_pos + (CO2 * indicator_bar_width / MAX_HAZARDOUS_LIMIT);
       else
         arrow_x_position = indicator_x_starting_pos + indicator_bar_width;
       int arrow_y_position = indicator_y_starting_pos - 5;
@@ -135,19 +144,19 @@ void graphic_data_screen(void)
 
       // Drawing The circle with latest values
       screen.setTextSize(1);
-      if (registered_level < MAX_SAFETY_LIMIT)
+      if (CO2 < MAX_SAFETY_LIMIT)
       {
         screen.stroke(GREEN_COLOR);
         screen.fill(GREEN_COLOR);
         screen.text("SAFE", indicator_x_starting_pos, indicator_y_starting_pos + indicator_height + 5);
       }
-      else if (registered_level < MAX_WARNING_LIMIT)
+      else if (CO2 < MAX_WARNING_LIMIT)
       {
         screen.stroke(YELLOW_COLOR);
         screen.fill(YELLOW_COLOR);
         screen.text("MODERATE", indicator_x_starting_pos, indicator_y_starting_pos + indicator_height + 5);
       }
-      else if (registered_level < MAX_UNHEALTHY_LIMIT)
+      else if (CO2 < MAX_UNHEALTHY_LIMIT)
       {
         screen.stroke(ORANGE_COLOR);
         screen.fill(ORANGE_COLOR);
@@ -171,15 +180,135 @@ void graphic_data_screen(void)
       screen.stroke(BLACK_COLOR);
       screen.text(co2_value, (screen_width / 2) - 20, (screen_height / 2) - 20);
       screen.setTextSize(1);
-      screen.text("ug/m", (screen_width / 2) - 10, (screen_height / 2) + 2);
-      screen.text("3", (screen_width / 2) + 12, (screen_height / 2) - 3);
+      screen.text("ppm", (screen_width / 2) - 10, (screen_height / 2) + 2);
 
       // Writing Temperature and Humidity Values
       screen.setTextSize(1);
       screen.stroke(GREY_COLOR);
+      screen.text("T:", (screen_width / 4) - 32, screen_height - 20);
       screen.text(temp_value, (screen_width / 4) - 20, screen_height - 20);
+      screen.text(".", (screen_width / 4) - 10, screen_height - 28);
+      screen.text("C", (screen_width / 4) - 6, screen_height - 20);
+      screen.text("H:", ((3 * screen_width) / 4) - 12, screen_height - 20);
       screen.text(humi_value, ((3 * screen_width) / 4), screen_height - 20);
       last_millis = millis();
+    }
+  }
+}
+
+/**
+ * @brief Draws the background to plot the values of PM 2.5
+ */
+void draw_graph_screen(void)
+{
+  Serial.println("Draw Graph Background");
+  collect_co2_values();
+
+  screen.background(BLACK_COLOR);
+  screen.stroke(GREY_COLOR);
+  screen.line(GRAPH_BUFFER_SCREEN, GRAPH_BUFFER_SCREEN, GRAPH_BUFFER_SCREEN, screen_height - GRAPH_BUFFER_SCREEN);
+  screen.line(GRAPH_BUFFER_SCREEN, screen_height - GRAPH_BUFFER_SCREEN, screen_width - GRAPH_BUFFER_SCREEN, screen_height - GRAPH_BUFFER_SCREEN);
+  int x_dots = ((screen_width - (2 * GRAPH_BUFFER_SCREEN)) / GRAPH_BUFFER_SCREEN + 1);
+  int y_dots = ((screen_height - (2 * GRAPH_BUFFER_SCREEN)) / GRAPH_BUFFER_SCREEN) + 1;
+  for (size_t i = 0; i < y_dots; i++)
+    for (size_t j = 0; j < x_dots; j++)
+      screen.point((j * GRAPH_BUFFER_SCREEN) + GRAPH_BUFFER_SCREEN, (i * GRAPH_BUFFER_SCREEN) + GRAPH_BUFFER_SCREEN);
+
+  screen.stroke(WHITE_COLOR);
+  screen.setTextSize(1);
+  screen.text("CO2", screen_width - 40, 10);
+  screen.text("500 divs", 1, 1);
+  screen.text("5 mins", screen_width - 40, screen_height - 10);
+  for (size_t i = 0; i < (y_dots / 2) + 1; i++)
+    screen.line(GRAPH_BUFFER_SCREEN, screen_height - (2 * i * GRAPH_BUFFER_SCREEN) - GRAPH_BUFFER_SCREEN, GRAPH_BUFFER_SCREEN / 2, screen_height - (2 * i * GRAPH_BUFFER_SCREEN) - GRAPH_BUFFER_SCREEN);
+  for (size_t i = 0; i < (x_dots / 2); i++)
+    screen.line((2 * i * GRAPH_BUFFER_SCREEN) + GRAPH_BUFFER_SCREEN, screen_height - GRAPH_BUFFER_SCREEN, (2 * i * GRAPH_BUFFER_SCREEN) + GRAPH_BUFFER_SCREEN, screen_height - (GRAPH_BUFFER_SCREEN / 2));
+}
+
+/**
+ * @brief Plots the graph bars corresponding to value of PM 2.5 after drawing the graph background
+ */
+void plot_graph_bar(void)
+{
+  draw_graph_screen();
+  change_screen_flag = false;
+  Serial.println("Plot Graph");
+  last_millis = millis();
+  int x_levels = ((screen_width - (2 * GRAPH_BUFFER_SCREEN)) / GRAPH_BUFFER_SCREEN) / 2;
+  int y_levels = ((screen_height - (2 * GRAPH_BUFFER_SCREEN)) / (GRAPH_BUFFER_SCREEN * 2));
+  int last_graph_position = 0;
+  float graph_divisions = 500;
+  float scaling_factor = screen_height / (y_levels * graph_divisions);
+  screen.stroke(BLACK_COLOR);
+
+  int x_last_pos, y_last_pos;
+
+  while (last_graph_position <= x_levels)
+  {
+    if (last_graph_position == x_levels)
+    {
+      draw_graph_screen();
+      last_graph_position = 0;
+    }
+
+    if ((digitalRead(INT_PIN) == LOW) || change_screen_flag)
+    {
+      change_screen();
+      break;
+    }
+
+    collect_co2_values();
+
+    if ((((millis() - last_millis) > GRAPH_PLOT_TIME) || (last_graph_position == 0)) && (CO2 > 10))
+    {
+      Serial.println("CO2: " + (String)CO2);
+      // Calculating Bar Values
+      int scaled_value = 0;
+      int height = 0;
+      if (CO2 < MAX_HAZARDOUS_LIMIT)
+      {
+        scaled_value = CO2 * scaling_factor;
+        height = scaled_value;
+      }
+      else
+      {
+        scaled_value = screen_height - (2 * GRAPH_BUFFER_SCREEN);
+        height = screen_height - (2 * GRAPH_BUFFER_SCREEN);
+      }
+      int x_pos = GRAPH_BUFFER_SCREEN + (2 * GRAPH_BUFFER_SCREEN * last_graph_position) + 1;
+      int y_pos = screen_height - GRAPH_BUFFER_SCREEN - scaled_value;
+      int width = (2 * GRAPH_BUFFER_SCREEN) - 1;
+
+      if (CO2 < MAX_SAFETY_LIMIT)
+        screen.fill(GREEN_COLOR);
+      else if (CO2 < MAX_WARNING_LIMIT)
+        screen.fill(YELLOW_COLOR);
+      else if (CO2 < MAX_UNHEALTHY_LIMIT)
+        screen.fill(ORANGE_COLOR);
+      else
+        screen.fill(RED_COLOR);
+      screen.stroke(BLACK_COLOR);
+      screen.rect(x_pos, y_pos, width, height);
+
+      if (last_graph_position == 0)
+      {
+        x_last_pos = x_pos + (width / 2);
+        y_last_pos = y_pos;
+      }
+      else
+      {
+        x_pos = x_pos + (width / 2);
+        screen.fill(WHITE_COLOR);
+        screen.stroke(WHITE_COLOR);
+        screen.circle(x_last_pos, y_last_pos, 2);
+        screen.circle(x_pos, y_pos, 2);
+        screen.line(x_last_pos, y_last_pos, x_pos, y_pos);
+        x_last_pos = x_pos;
+        y_last_pos = y_pos;
+      }
+
+      last_millis = millis();
+      last_graph_position++;
     }
   }
 }
@@ -204,11 +333,11 @@ void drawing_battery(void)
   // Creating Battery Fill
   float val1 = (analogRead(BATTERY_INPUT) - MIN_BATTERY_ADC_VALUE);
   float available_battery_percentage = (val1 * 100) / MAX_BATTERY_ADC_VALUE;
-  Serial.println("Raw Battery Analog value:" + (String)analogRead(BATTERY_INPUT));
-  Serial.println("Battery Level: " + (String)available_battery_percentage);
+  // Serial.println("Raw Battery Analog value:" + (String)analogRead(BATTERY_INPUT));
+  // Serial.println("Battery Level: " + (String)available_battery_percentage);
   float bat_bar_width = (available_battery_percentage * BATTERY_SYMBOL_WIDTH) / 100;
   int battery_bar_width = bat_bar_width;
-  Serial.println("Integer Bar Width:" + (String)battery_bar_width);
+  // Serial.println("Integer Bar Width:" + (String)battery_bar_width);
   screen.noStroke();
 
   if (available_battery_percentage < LOW_BATTERY_PERCENT)
@@ -220,7 +349,7 @@ void drawing_battery(void)
   screen.rect(xStart + 1, yStart + 1, battery_bar_width - 2, BATTERY_SYMBOL_HEIGHT - 2);
   if (analogRead(CONNECTED_SUPPLY_PIN) > SUPPLY_CONNECTED_MIN_ADC_VALUE)
   {
-    Serial.println("Charger Connected");
+    // Serial.println("Charger Connected");
     int batxStart = screen_width - (BATTERY_SYMBOL_WIDTH / 2) - MARGIN_BUFFER;
     int batyStart = MARGIN_BUFFER + 1;
     int bat_symbol_width = 2;
@@ -257,25 +386,12 @@ void change_screen(void)
   Serial.println("Button pressed");
   delay(1000);
   change_screen_flag = true;
-  if (screen_counter < 2)
+  if (screen_counter < 3)
     screen_counter++;
   else
     screen_counter = 1;
   delay(500);
   return;
-}
-
-void start_device_peripherals(void)
-{
-  Serial.println("Starting Device Peripherals");
-  digitalWrite(TFT_DISPLAY_LED, HIGH);
-  screen.begin();
-  screen.setRotation(90);
-  screen_width = screen.width();
-  screen_height = screen.height();
-  screen.background(BLACK_COLOR);
-  screen.stroke(WHITE_COLOR);
-  boot_screen();
 }
 
 void stop_device_peripherals(void)
@@ -305,6 +421,11 @@ void loop()
     break;
 
   case 2:
+    Serial.println("\n----------------------------------------------------------------------------------------");
+    plot_graph_bar();
+    break;
+
+  case 3:
     Serial.println("\n----------------------------------------------------------------------------------------");
     put_device_to_sleep();
     break;

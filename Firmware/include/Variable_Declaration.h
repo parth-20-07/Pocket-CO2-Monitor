@@ -23,11 +23,11 @@ int screen_counter = 1;          // Counts on which screen the user is at
 bool change_screen_flag = false; // Checks if the screen needs to be changed
 const char company_name[] = "Ecologic";
 #define BATTERY_SYMBOL_HEIGHT 15
-#define BATTERY_SYMBOL_WIDTH 30
+#define BATTERY_SYMBOL_WIDTH 25
 #define MARGIN_BUFFER 3
 #define GRAPH_BUFFER_SCREEN 10 // Margin space between screen border and graph
-// #define GRAPH_PLOT_TIME 300000 // 5 mins plotter
-#define GRAPH_PLOT_TIME 10000 // 10 secs plotter
+#define GRAPH_PLOT_TIME 300000 // 5 mins plotter
+// #define GRAPH_PLOT_TIME 10000 // 10 secs plotter
 uint32_t last_millis;
 int screen_width = 0;
 int screen_height = 0;
@@ -44,7 +44,6 @@ TFT screen = TFT(TFT_DISPLAY_CS, TFT_DISPLAY_DC, TFT_DISPLAY_RST);
 #define RED_COLOR 0, 0, 255
 #define GREEN_COLOR 0, 255, 0
 #define ORANGE_COLOR 0, 50, 255
-#define PINK_COLOR 182, 193, 255
 //!=======================================================================================//
 
 //!============================= Battery Variables =======================================//
