@@ -384,13 +384,21 @@ void change_screen(void)
   sleep_disable();
   detachInterrupt(digitalPinToInterrupt(INT_PIN));
   Serial.println("Button pressed");
-  delay(1000);
+  delay(500);
+
   change_screen_flag = true;
-  if (screen_counter < 3)
+  uint64_t sleep_timer = millis();
+  while (digitalRead(INT_PIN) == LOW)
+    if ((millis() - sleep_timer) > 2000)
+    {
+      screen_counter = 3;
+      return;
+    }
+
+  if (screen_counter < 2)
     screen_counter++;
   else
     screen_counter = 1;
-  delay(500);
   return;
 }
 
