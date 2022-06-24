@@ -26,11 +26,12 @@ const char company_name[] = "Ecologic";
 #define BATTERY_SYMBOL_WIDTH 25
 #define MARGIN_BUFFER 3
 #define GRAPH_BUFFER_SCREEN 10 // Margin space between screen border and graph
-#define GRAPH_PLOT_TIME 300000 // 5 mins plotter
+#define GRAPH_PLOT_TIME 30000  // 30 secs plotter
 // #define GRAPH_PLOT_TIME 10000 // 10 secs plotter
 uint32_t last_millis;
 int screen_width = 0;
 int screen_height = 0;
+bool first_boot = true;
 
 #include <SPI.h>
 #include <TFT.h>

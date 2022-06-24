@@ -98,7 +98,6 @@ void graphic_data_screen(void)
   screen.stroke(RED_COLOR);
   screen.fill(RED_COLOR);
   screen.rect(indicator_x_starting_pos + green_indicator_height + warning_indicator_height + severe_indicator_height, indicator_y_starting_pos, danger_indicator_height, indicator_height);
-  bool first_boot = true;
   while (1)
   {
     if ((digitalRead(INT_PIN) == LOW) || change_screen_flag)
@@ -203,6 +202,7 @@ void draw_graph_screen(void)
 {
   Serial.println("Draw Graph Background");
   collect_co2_values();
+  first_boot = true;
 
   screen.background(BLACK_COLOR);
   screen.stroke(GREY_COLOR);
@@ -259,7 +259,7 @@ void plot_graph_bar(void)
 
     collect_co2_values();
 
-    if ((((millis() - last_millis) > GRAPH_PLOT_TIME) || (last_graph_position == 0)) && (CO2 > 10))
+    if ((((millis() - last_millis) > GRAPH_PLOT_TIME) || (last_graph_position == 0) || first_boot) && (CO2 > 10))
     {
       Serial.println("CO2: " + (String)CO2);
       // Calculating Bar Values
@@ -347,7 +347,7 @@ void drawing_battery(void)
   else
     screen.fill(GREEN_COLOR);
   screen.rect(xStart + 1, yStart + 1, battery_bar_width - 2, BATTERY_SYMBOL_HEIGHT - 2);
-  if (analogRead(CONNECTED_SUPPLY_PIN) > SUPPLY_CONNECTED_MIN_ADC_VALUE)
+  if (digitalRead(CONNECTED_SUPPLY_PIN))
   {
     // Serial.println("Charger Connected");
     int batxStart = screen_width - (BATTERY_SYMBOL_WIDTH / 2) - MARGIN_BUFFER;
