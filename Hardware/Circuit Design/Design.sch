@@ -12734,8 +12734,6 @@ GND</text>
 <part name="FID3" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" deviceset="FIDUCIAL" device="&quot;&quot;" package3d_urn="urn:adsk.eagle:package:15955190/2"/>
 <part name="FID4" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" deviceset="FIDUCIAL" device="&quot;&quot;" package3d_urn="urn:adsk.eagle:package:15955190/2"/>
 <part name="FID5" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" deviceset="FIDUCIAL" device="&quot;&quot;" package3d_urn="urn:adsk.eagle:package:15955190/2"/>
-<part name="FID6" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" deviceset="FIDUCIAL" device="&quot;&quot;" package3d_urn="urn:adsk.eagle:package:15955190/2"/>
-<part name="FID7" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" deviceset="FIDUCIAL" device="&quot;&quot;" package3d_urn="urn:adsk.eagle:package:15955190/2"/>
 <part name="LOGO1" library="logo" library_urn="urn:adsk.eagle:library:264" deviceset="ESD_10.00" device=""/>
 <part name="LOGO2" library="logo" library_urn="urn:adsk.eagle:library:264" deviceset="COPYRIGHT-8MM" device=""/>
 <part name="LOGO3" library="logo" library_urn="urn:adsk.eagle:library:264" deviceset="MUELLTONNE_10.00" device=""/>
@@ -13075,8 +13073,6 @@ GND</text>
 <instance part="FID3" gate="G$1" x="364.49" y="29.21" smashed="yes" rot="R180"/>
 <instance part="FID4" gate="G$1" x="360.68" y="29.21" smashed="yes" rot="R180"/>
 <instance part="FID5" gate="G$1" x="356.87" y="29.21" smashed="yes" rot="R180"/>
-<instance part="FID6" gate="G$1" x="353.06" y="29.21" smashed="yes" rot="R180"/>
-<instance part="FID7" gate="G$1" x="349.25" y="29.21" smashed="yes" rot="R180"/>
 <instance part="LOGO1" gate="G$1" x="369.57" y="35.56" smashed="yes"/>
 <instance part="LOGO2" gate="G$1" x="355.6" y="35.56" smashed="yes"/>
 <instance part="LOGO3" gate="G$1" x="339.09" y="34.29" smashed="yes"/>

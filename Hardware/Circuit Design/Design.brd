@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.3125" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="0.127" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
@@ -193,62 +193,62 @@
 <wire x1="-2.54" y1="34.29" x2="-2.54" y2="0" width="0" layer="20"/>
 <text x="34.925" y="32.0675" size="1.27" layer="25">CTRL</text>
 <text x="51.7525" y="32.0675" size="1.27" layer="25">RST</text>
-<polygon width="0.1524" layer="41">
-<vertex x="83.82" y="34.29"/>
-<vertex x="83.82" y="31.75"/>
-<vertex x="86.36" y="31.75"/>
-<vertex x="86.36" y="34.29"/>
-</polygon>
-<polygon width="0.1524" layer="42">
-<vertex x="83.82" y="34.29"/>
-<vertex x="83.82" y="31.75"/>
-<vertex x="86.36" y="31.75"/>
-<vertex x="86.36" y="34.29"/>
-</polygon>
-<circle x="85.09" y="33.02" radius="0.75" width="0" layer="20"/>
-<polygon width="0.1524" layer="41">
-<vertex x="83.82" y="2.54"/>
-<vertex x="83.82" y="0"/>
-<vertex x="86.25" y="0"/>
-<vertex x="86.25" y="2.54"/>
-</polygon>
-<polygon width="0.1524" layer="42">
-<vertex x="83.82" y="2.54"/>
-<vertex x="83.82" y="0"/>
-<vertex x="86.25" y="0"/>
-<vertex x="86.25" y="2.54"/>
-</polygon>
-<circle x="85.09" y="1.27" radius="0.75" width="0" layer="20"/>
-<polygon width="0.1524" layer="41">
-<vertex x="-2.54" y="2.54"/>
-<vertex x="-2.54" y="0"/>
-<vertex x="0" y="0"/>
-<vertex x="0" y="2.54"/>
-</polygon>
-<polygon width="0.1524" layer="42">
-<vertex x="-2.54" y="2.54"/>
-<vertex x="-2.54" y="0"/>
-<vertex x="0" y="0"/>
-<vertex x="0" y="2.54"/>
-</polygon>
-<circle x="-1.27" y="1.27" radius="0.75" width="0" layer="20"/>
-<polygon width="0.1524" layer="41">
-<vertex x="-2.54" y="34.29"/>
-<vertex x="-2.54" y="31.75"/>
-<vertex x="0" y="31.75"/>
-<vertex x="0" y="34.29"/>
-</polygon>
-<polygon width="0.1524" layer="42">
-<vertex x="-2.54" y="34.29"/>
-<vertex x="-2.54" y="31.75"/>
-<vertex x="0" y="31.75"/>
-<vertex x="0" y="34.29"/>
-</polygon>
-<circle x="-1.27" y="33.02" radius="0.75" width="0" layer="20"/>
 <wire x1="77.47" y1="26.67" x2="77.47" y2="13.97" width="0" layer="20"/>
 <wire x1="77.47" y1="13.97" x2="76.2" y2="13.97" width="0" layer="20"/>
 <wire x1="76.2" y1="13.97" x2="76.2" y2="26.67" width="0" layer="20"/>
 <wire x1="76.2" y1="26.67" x2="77.47" y2="26.67" width="0" layer="20"/>
+<polygon width="0.1524" layer="41">
+<vertex x="80.859" y="34.3005"/>
+<vertex x="80.859" y="28.948"/>
+<vertex x="86.2115" y="28.948"/>
+<vertex x="86.2115" y="34.3005"/>
+</polygon>
+<polygon width="0.1524" layer="42">
+<vertex x="80.859" y="34.3005"/>
+<vertex x="80.859" y="28.948"/>
+<vertex x="86.2115" y="28.948"/>
+<vertex x="86.2115" y="34.3005"/>
+</polygon>
+<circle x="83.6915" y="31.468" radius="2" width="0" layer="20"/>
+<polygon width="0.1524" layer="41">
+<vertex x="-2.453" y="34.3005"/>
+<vertex x="-2.453" y="28.948"/>
+<vertex x="2.8995" y="28.948"/>
+<vertex x="2.8995" y="34.3005"/>
+</polygon>
+<polygon width="0.1524" layer="42">
+<vertex x="-2.453" y="34.3005"/>
+<vertex x="-2.453" y="28.948"/>
+<vertex x="2.8995" y="28.948"/>
+<vertex x="2.8995" y="34.3005"/>
+</polygon>
+<circle x="0.3795" y="31.468" radius="2" width="0" layer="20"/>
+<polygon width="0.1524" layer="41">
+<vertex x="-2.453" y="5.3445"/>
+<vertex x="-2.453" y="-0.008"/>
+<vertex x="2.8995" y="-0.008"/>
+<vertex x="2.8995" y="5.3445"/>
+</polygon>
+<polygon width="0.1524" layer="42">
+<vertex x="-2.453" y="5.3445"/>
+<vertex x="-2.453" y="-0.008"/>
+<vertex x="2.8995" y="-0.008"/>
+<vertex x="2.8995" y="5.3445"/>
+</polygon>
+<circle x="0.3795" y="2.512" radius="2" width="0" layer="20"/>
+<polygon width="0.1524" layer="41">
+<vertex x="80.859" y="5.4715"/>
+<vertex x="80.859" y="0.119"/>
+<vertex x="86.2115" y="0.119"/>
+<vertex x="86.2115" y="5.4715"/>
+</polygon>
+<polygon width="0.1524" layer="42">
+<vertex x="80.859" y="5.4715"/>
+<vertex x="80.859" y="0.119"/>
+<vertex x="86.2115" y="0.119"/>
+<vertex x="86.2115" y="5.4715"/>
+</polygon>
+<circle x="83.6915" y="2.639" radius="2" width="0" layer="20"/>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
@@ -2622,12 +2622,6 @@ design rules under a new name.</description>
 <element name="FID5" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" package="FIDUCIAL_1MM" package3d_urn="urn:adsk.eagle:package:15955190/2" value="FIDUCIAL&quot;&quot;" x="20.32" y="19.05" smashed="yes">
 <attribute name="BOM" value="EXCLUDE" x="20.32" y="19.05" size="1.778" layer="27" display="off"/>
 </element>
-<element name="FID6" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" package="FIDUCIAL_1MM" package3d_urn="urn:adsk.eagle:package:15955190/2" value="FIDUCIAL&quot;&quot;" x="1.27" y="33.02" smashed="yes">
-<attribute name="BOM" value="EXCLUDE" x="1.27" y="33.02" size="1.778" layer="27" display="off"/>
-</element>
-<element name="FID7" library="Airquality_Sensor" library_urn="urn:adsk.eagle:library:16015176" package="FIDUCIAL_1MM" package3d_urn="urn:adsk.eagle:package:15955190/2" value="FIDUCIAL&quot;&quot;" x="1.27" y="1.27" smashed="yes">
-<attribute name="BOM" value="EXCLUDE" x="1.27" y="1.27" size="1.778" layer="27" display="off"/>
-</element>
 <element name="TP1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="PAD.03X.03" package3d_urn="urn:adsk.eagle:package:38286/1" value="TEST-POINT3" x="32.7175" y="22.5225" smashed="yes"/>
 <element name="TP2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="PAD.03X.03" package3d_urn="urn:adsk.eagle:package:38286/1" value="TEST-POINT3" x="30.1625" y="17.78" smashed="yes"/>
 <element name="TP3" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="PAD.03X.03" package3d_urn="urn:adsk.eagle:package:38286/1" value="TEST-POINT3" x="29.2925" y="18.68" smashed="yes"/>
@@ -2881,9 +2875,9 @@ design rules under a new name.</description>
 <wire x1="82.4075" y1="17.21" x2="83.1025" y2="17.21" width="0.1524" layer="1"/>
 <via x="83.75" y="16.5625" extent="1-16" drill="0.35"/>
 <wire x1="84.3825" y1="19.3725" x2="84.375" y2="19.365" width="0.1524" layer="1"/>
-<wire x1="79.7275" y1="32.3875" x2="81.3625" y2="32.3875" width="0.1524" layer="1"/>
-<wire x1="81.3625" y1="32.3875" x2="81.875" y2="31.875" width="0.1524" layer="1"/>
-<via x="81.875" y="31.875" extent="1-16" drill="0.35"/>
+<wire x1="79.7275" y1="32.3875" x2="79.175" y2="32.3875" width="0.1524" layer="1"/>
+<wire x1="79.175" y1="32.3875" x2="78.125" y2="33.4375" width="0.1524" layer="1"/>
+<via x="78.125" y="33.4375" extent="1-16" drill="0.35"/>
 <wire x1="81.0175" y1="20.07" x2="81.0175" y2="19.02" width="0.1524" layer="1"/>
 <wire x1="81.0175" y1="19.02" x2="80.8175" y2="18.82" width="0.1524" layer="1"/>
 <wire x1="62.23" y1="32.7" x2="65.89" y2="32.7" width="0.1524" layer="1"/>
