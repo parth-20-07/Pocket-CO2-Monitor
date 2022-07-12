@@ -53,7 +53,6 @@ void graphic_data_screen(void)
   screen_height = screen.height();
   screen.background(BLACK_COLOR);
   screen.stroke(WHITE_COLOR);
-  boot_screen();
 
   change_screen_flag = false;
   Serial.println("Drawing Graphic Screen");
@@ -417,6 +416,7 @@ void setup()
   setup_sensors();
   setup_peripheral_pin_mode();
   Serial.println("Setup Done");
+  boot_screen();
 }
 
 void loop()
